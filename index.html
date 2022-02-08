@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<style>
+   body{
+       background-color: aliceblue;
+   }
+   .noteCard{
+       border-radius: 10px;
+       background-color: azure;
+       box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);
+   }
+   .card-body .btn-primary,
+   .noteCard:hover{
+    transform: translateY(5px);
+        box-shadow: 2px 2px 26px 0px rgba(0,0,0,0.3);
+   }
+   button{
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);
+
+   }
+  
+   form{
+        box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);
+        background-color: azure;
+   }
+   hr{
+       size:4%;
+   }
+   .card-body .btn-primary {
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);
+    color: #fff;
+    background-color: #ef6f6c;
+    border-color: red;
+}
+.card-body .btn-primary:hover{
+    transform: translateY(5px);
+        box-shadow: 2px 2px 26px 0px rgba(0,0,0,0.3);
+}
+#note_title{
+    color: royalblue;
+}
+</style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+               
+                NOTES <i class="far fa-sticky-note"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li> -->
+
+
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container ">
+        <div class=" d-flex justify-content-center my-3 ">
+            <h1> Welcome to Magic notes <hr style="color: blue; height: 4%;"></h1>
+            
+        </div>
+
+        <div class=" d-flex justify-content-center my-3 ">
+            <form class="my-5 "  style="width: 42rem; border: 2px solid black; padding: 20px; border-radius: 10px;">
+                <div class=" d-flex justify-content-center my-3 ">
+                    <h1 style="color: blue;"> "NOTE PAD" <hr style="color: blue; height: 4%;"></h1>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Topic</label>
+                    <input type="text" id="add_top" class="form-control" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                    <textarea class="form-control" id="add_des" rows="3" placeholder=""></textarea>
+                </div>
+                <button class="btn btn-primary" id="add_btn">Add Note <i class="far fa-sticky-note"></i></button>
+            </form>
+        </div>
+        <div id="mala_notes" class="d-flex justify-content-center my-3">
+            
+        </div>
+    </div>
+
+    <div id="show" class=" d-flex justify-content-center flex-wrap my-3 ">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        
+        let add_des = document.getElementById('add_des');
+        let add_top = document.getElementById('add_top');
+        let show = document.getElementById('show');
+        
+        
+        if(localStorage.length !=0){
+            let mala_notes =  document.getElementById('mala_notes');
+            mala_notes.innerHTML +=  `<h2 id="mala_notes">NOTES</h2>
+          `
+
+            for(let i=0;i<localStorage.length;i++){
+                let show_key = localStorage.key(i);
+                let show_value = localStorage.getItem(show_key);
+                show.innerHTML += `  <div class="noteCard  mx-4 my-4" style="width:18rem; height: fit-content; border: solid 1px darkgray;">
+                <div class="card-body">
+                <h5 class="card-title" id="note_title">${show_key}</h5>
+                <p class="card-text my-3" id="note_des">${show_value} </p>
+                <button class="btn btn-primary" id="${show_key}" onclick="delete_text(this.id)" >Delete <i class="fas fa-times-circle"></i></button>
+            </div>
+            </div>`
+            }
+
+        }
+        
+
+
+
+
+        function add_text(){
+           
+        add_btn.onclick =  function(){
+          
+        const key = add_top.value;
+        const value = add_des.value;
+      
+            if(key && value){
+            localStorage.setItem(key,value);
+
+            let show_value = localStorage.getItem(key);
+                show.innerHTML += `  <div class="noteCard  mx-4 my-4" style="width:18rem; height: fit-content ; border: solid 1px darkgray;">
+                <div class="card-body">
+                <h5 class="card-title" id="note_title">${key}</h5>
+                <p class="card-text my-3" id="note_des">${show_value}</p>
+                <button class="btn btn-primary" id="${key}" onclick="delete_text(this.id)" >Delete <i class="fas fa-times-circle"></i></button>
+            </div>
+            </div>`
+            }
+            add_top.value = "";
+            add_des.value = "";
+        }
+    }
+       function delete_text(key){
+        localStorage.removeItem(key);
+        location.reload();
+       }
+    
+       
+        
+
+       add_text();
+       
+    </script>
+</body>
+
+</html>
